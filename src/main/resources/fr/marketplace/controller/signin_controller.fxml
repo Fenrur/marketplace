@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="347.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="fr.marketplace.controller.SignInController">
+    <children>
+        <Label layoutX="64.0" layoutY="29.0" text="Sign in yourself">
+            <font>
+                <Font size="19.0"/>
+            </font>
+        </Label>
+        <TextField fx:id="usernameTextField" layoutX="45.0" layoutY="101.0"/>
+        <TextField fx:id="emailTextField" layoutX="45.0" layoutY="153.0"/>
+        <PasswordField fx:id="passwordTextField" layoutX="45.0" layoutY="209.0"/>
+        <Label layoutX="98.0" layoutY="183.0" text="password"/>
+        <Label layoutX="111.0" layoutY="132.0" text="email"/>
+        <Button layoutX="84.0" layoutY="264.0" mnemonicParsing="false" onMouseClicked="#onConfirmButtonClicked"
+                prefHeight="26.0" prefWidth="84.0" text="Confirm"/>
+
+        <Label layoutX="99.0" layoutY="75.0" text="username"/>
+    </children>
+</AnchorPane>
