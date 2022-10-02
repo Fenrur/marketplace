@@ -27,10 +27,10 @@ public class SelectViewTypeMarketplace implements Initializable {
 
                 });
                 addSection("Product Management", "product.svg", event -> {
-
+                    ClientApplication.changeSceneFromFXML("product_marketplace_controller.fxml", true, "MarketPlace - Product Management");
                 });
-                addSection("Seller Management", "seller.svg", event -> {
-
+                addSection("Users Management", "users.svg", event -> {
+                    ClientApplication.changeSceneFromFXML("user_marketplace_controller.fxml", true, "MarketPlace - Product Management");
                 });
                 addSection("Sales Management", "sales.svg", event -> {
 
@@ -77,6 +77,7 @@ public class SelectViewTypeMarketplace implements Initializable {
 
         final Label deliveryLabel = new Label(nameSection);
         final Button access = new Button("access");
+        access.setFocusTraversable(false);
 
         vBox.getChildren().add(imageView);
         vBox.getChildren().add(deliveryLabel);

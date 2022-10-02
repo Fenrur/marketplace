@@ -36,6 +36,16 @@ public class Resource {
         }
     }
 
+    public static FXMLLoader loaderFXML(String name) {
+        Objects.requireNonNull(name);
+        try {
+            final Class<?> callerClass = STACK_WALKER.getCallerClass();
+            return FXMLLoader.load(Objects.requireNonNull(callerClass.getResource(name)));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static Image loadSVG(String name) {
         Objects.requireNonNull(name);
         final Class<?> callerClass = STACK_WALKER.getCallerClass();

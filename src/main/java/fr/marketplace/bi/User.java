@@ -5,8 +5,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public record User(UUID id, Email email, Username username, HashedPassword hashedPassword, Type type,
-                   boolean isSubscriber,
-                   ZonedDateTime createAt) {
+                   boolean isSubscriber, ZonedDateTime createAt, boolean isDisable) {
 
     public User {
         Objects.requireNonNull(id);
@@ -28,6 +27,11 @@ public record User(UUID id, Email email, Username username, HashedPassword hashe
         User user = (User) o;
 
         return id.equals(user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 
     public enum Type {

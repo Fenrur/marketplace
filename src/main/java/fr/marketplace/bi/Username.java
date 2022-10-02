@@ -2,7 +2,7 @@ package fr.marketplace.bi;
 
 import java.util.Objects;
 
-public record Username(String username) {
+public record Username(String username) implements Comparable<Username> {
 
     public Username {
         Objects.requireNonNull(username);
@@ -13,6 +13,8 @@ public record Username(String username) {
         return new Username(username);
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -21,6 +23,16 @@ public record Username(String username) {
         Username username1 = (Username) o;
 
         return username.equalsIgnoreCase(username1.username);
+    }
+
+    @Override
+    public String toString() {
+        return username;
+    }
+
+    @Override
+    public int compareTo(Username o) {
+        return username.compareTo(o.username);
     }
 
     public static class UsernameBadPatternException extends RuntimeException {

@@ -41,7 +41,14 @@ public class OrderRepository implements Iterable<Order> {
 
         final Set<DeliveryProduct> deliveryProducts = shoppingProducts
                 .stream()
-                .map(shoppingProduct -> new DeliveryProduct(shoppingProduct.productId(), UUID.randomUUID(), shoppingProduct.amount(), shoppingProduct.amount() * shoppingProduct.price(), shoppingProduct.price()))
+                .map(shoppingProduct ->
+                        new DeliveryProduct(
+                                shoppingProduct.productId(),
+                                UUID.randomUUID(),
+                                shoppingProduct.amount(),
+                                shoppingProduct.unitPrice()
+                        )
+                )
                 .collect(Collectors.toSet());
 
         final List<NoSuchProductInStockException.Element> elements = deliveryProducts

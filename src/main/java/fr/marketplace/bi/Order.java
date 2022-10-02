@@ -1,5 +1,6 @@
 package fr.marketplace.bi;
 
+import javax.money.MonetaryAmount;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -24,10 +25,11 @@ public record Order(UUID orderId, Set<DeliveryProduct> deliveryProducts, UUID cu
         this.creditCart = creditCart;
     }
 
-    public double totalPrice() {
+    public MonetaryAmount totalPrice() {
         return deliveryProducts
                 .stream()
-                .mapToDouble(DeliveryProduct::totalPrice)
-                .sum();
+                .map(DeliveryProduct::totalPrice)
+                .reduce(MonetaryAmount::add)
+                .get();
     }
 }

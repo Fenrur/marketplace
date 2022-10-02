@@ -1,7 +1,9 @@
 package fr.marketplace.bi;
 
 import org.apache.commons.lang3.StringUtils;
+import org.javamoney.moneta.FastMoney;
 
+import javax.money.MonetaryAmount;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.Set;
@@ -27,18 +29,24 @@ public sealed interface Search extends Consumer<Set<Product>> {
 
         @Override
         public void accept(Set<Product> actualSearches) {
-            actualSearches.removeIf(product -> min <= product.price() && product.price() <= max);
+            actualSearches.removeIf(product -> {
+                final MonetaryAmount productPrice = product.price();
+                final FastMoney min = FastMoney.of(this.min, productPrice.getCurrency());
+                final FastMoney max = FastMoney.of(this.max, productPrice.getCurrency());
+
+                return productPrice.isGreaterThanOrEqualTo(min) && productPrice.isLessThanOrEqualTo(max);
+            });
         }
     }
 
-    record ByMaxZonedDateTime(ZonedDateTime max) implements Search {
-        public ByMaxZonedDateTime {
-            Objects.requireNonNull(max);
-        }
-
-        @Override
-        public void accept(Set<Product> actualSearches) {
-            actualSearches.removeIf(product -> product.estimatedDelivery().isBefore(max));
-        }
-    }
+//    record ByMaxZonedDateTime(ZonedDateTime max) implements Search {
+//        public ByMaxZonedDateTime {
+//            Objects.requireNonNull(max);
+//        }
+//
+//        @Override
+//        public void accept(Set<Product> actualSearches) {
+//            actualSearches.removeIf(product -> product.estimatedDelivery().isBefore(max));
+//        }
+//    }
 }

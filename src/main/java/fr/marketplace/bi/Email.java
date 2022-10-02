@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public record Email(String email) {
+public record Email(String email) implements Comparable<Email> {
 
     public final static Pattern EMAIL_PATTERN = Pattern.compile("^(.+)@(.+)$");
 
@@ -16,6 +16,16 @@ public record Email(String email) {
 
     public static Email of(String email) {
         return new Email(email);
+    }
+
+    @Override
+    public int compareTo(Email o) {
+        return email.compareTo(o.email);
+    }
+
+    @Override
+    public String toString() {
+        return email;
     }
 
     public static class EmailBadPatternException extends RuntimeException {

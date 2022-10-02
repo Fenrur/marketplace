@@ -2,12 +2,13 @@ package fr.marketplace.bi;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import fr.marketplace.Json;
+import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.multimap.set.MutableSetMultimap;
+import org.eclipse.collections.api.set.MutableSet;
 import org.eclipse.collections.impl.factory.Multimaps;
 
 import java.nio.file.Path;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class ProductRepository {
 
@@ -22,22 +23,35 @@ public class ProductRepository {
     }
 
     public static ProductRepository fromFile(Json json, Path productRepositoryFilePath) {
-        MutableSetMultimap<UUID, Product> repository;
+        Map<UUID, Set<Product>> map;
         try {
-            repository = json.decodeFromFile(productRepositoryFilePath, new TypeReference<>() {
+            map = json.decodeFromFile(productRepositoryFilePath, new TypeReference<>() {
             });
         } catch (Exception ignored) {
-            repository = Multimaps.mutable.set.empty();
+            map = new HashMap<>();
         }
+
+        final MutableSetMultimap<UUID, Product> repository = Multimaps.mutable.set.empty();
+
+        map.forEach(repository::putAll);
 
         return new ProductRepository(json, repository, productRepositoryFilePath);
     }
 
     private void writeToFile() {
-        json.encodeToFile(filePath, repository);
+        // small trick no serializer / deserializer for MutableSetMultimap
+        final Map<UUID, RichIterable<Product>> toWrite = new HashMap<>();
+
+        repository.forEachKeyMultiValues(toWrite::put);
+
+        json.encodeToFile(
+                filePath,
+                toWrite
+        );
     }
 
     public void put(UUID userId, Product product) {
+        repository.remove(userId, product);
         repository.put(userId, product);
         writeToFile();
     }
@@ -58,5 +72,18 @@ public class ProductRepository {
         }
 
         return allProducts;
+    }
+
+    public Optional<UUID> getUserIdByProductId(UUID productId) {
+        final RichIterable<UUID> userIds = repository.keysView();
+
+        for (UUID userId : userIds) {
+            final MutableSet<Product> products = repository.get(userId);
+            for (Product product : products) {
+                if (product.id().equals(productId)) return Optional.of(userId);
+            }
+        }
+
+        return Optional.empty();
     }
 }

@@ -32,7 +32,8 @@ public class SignInController {
                     hashedPassword,
                     User.Type.CUSTOMER,
                     false,
-                    ZonedDateTime.now()
+                    ZonedDateTime.now(),
+                    false
             );
 
             ClientApplication

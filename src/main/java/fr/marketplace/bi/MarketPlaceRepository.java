@@ -1,6 +1,6 @@
 package fr.marketplace.bi;
 
-public record MarketPlaceRepository(ProductRepository repository, OrderRepository orderRepository,
+public record MarketPlaceRepository(ProductRepository productRepository, OrderRepository orderRepository,
                                     UserRepository userRepository, StockProductRepository stockProductRepository,
                                     DeliveryServiceRepository deliveryServiceRepository) {
 }

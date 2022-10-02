@@ -1,5 +1,10 @@
 package fr.marketplace;
 
+import org.javamoney.moneta.FastMoney;
+
+import javax.money.MonetaryAmount;
+import java.util.Currency;
+
 public class Utils {
 
     public static <T> T first(Iterable<T> iterable) {
@@ -9,5 +14,10 @@ public class Utils {
             break;
         }
         return value;
+    }
+
+    public static String prettyFormat(MonetaryAmount monetaryAmount) {
+        final double value = monetaryAmount.getNumber().doubleValueExact();
+        return value + " " + Currency.getInstance(monetaryAmount.getCurrency().getCurrencyCode()).getSymbol();
     }
 }
