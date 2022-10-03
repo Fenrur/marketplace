@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.TextAlignment;
 
 import java.net.URI;
 import java.net.URL;
@@ -17,21 +18,24 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class ImagesViewerController implements Initializable {
+public class ProductViewerController implements Initializable {
     private final String productName;
     private final String price;
+    private final String description;
     public ImageView imageView;
     private final List<Image> allImages = new CopyOnWriteArrayList<>();
     public Label productNameLabel;
     public Label priceLabel;
     public Label indexLabel;
+    public Label descriptionLabel;
     int index = 0;
 
     private final static HttpClient HTTP_CLIENT = HttpClient.newHttpClient();
 
-    public ImagesViewerController(Set<URI> images, String productName, String price) {
+    public ProductViewerController(Set<URI> images, String productName, String price, String description) {
         this.productName = productName;
         this.price = price;
+        this.description = description;
         for (URI url : images) {
             HTTP_CLIENT.sendAsync(
                             HttpRequest.newBuilder()
@@ -90,5 +94,8 @@ public class ImagesViewerController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         productNameLabel.setText(productName);
         priceLabel.setText(price);
+        descriptionLabel.setText(description);
+        descriptionLabel.setWrapText(true);
+        descriptionLabel.setTextAlignment(TextAlignment.CENTER);
     }
 }

@@ -68,7 +68,7 @@ public class UserMarketplaceController implements Initializable {
             checkBox.setSelected(param.getValue().isSubscriber());
             checkBox.setFocusTraversable(false);
             checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-                param.getValue().setDisable(newValue);
+                param.getValue().setSubscriber(newValue);
 
                 final User user = param.getValue().build();
 
@@ -108,7 +108,7 @@ public class UserMarketplaceController implements Initializable {
 
         final MutableUser mutableUser = new MutableUser();
         mutableUser.setId(UUID.randomUUID());
-        ClientApplication.showNewStageFromFXML("user_editor_controller.fxml", true, "MarketPlace - Edit Product", param -> new UserEditorController(mutableUser, this));
+        ClientApplication.showNewStageFromFXML("user_editor_controller.fxml", true, "MarketPlace - New User", param -> new UserEditorController(mutableUser, this));
     }
 
 

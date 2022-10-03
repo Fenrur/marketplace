@@ -9,6 +9,6 @@
 <HBox fx:id="hbox" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="fr.marketplace.controller.SelectViewTypeMarketplace"
-      prefHeight="350.0" prefWidth="700.0">
+      prefHeight="350.0" prefWidth="900.0">
 
 </HBox>

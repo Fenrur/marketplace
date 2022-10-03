@@ -1,7 +1,6 @@
 package fr.marketplace.controller;
 
 import fr.marketplace.bi.Product;
-import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -98,12 +97,10 @@ public class ProductEditorController implements Initializable {
                 productMarketplaceController.tableView.getItems().add(mutableProduct);
             }
 
-                productMarketplaceController.tableView.refresh();
-        }
-        catch (NumberFormatException e) {
+            productMarketplaceController.tableView.refresh();
+        } catch (NumberFormatException e) {
             new Alert(Alert.AlertType.ERROR, "Price is not a number", ButtonType.OK).showAndWait();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
         }

@@ -1,6 +1,9 @@
 package fr.marketplace.controller;
 
-import fr.marketplace.bi.*;
+import fr.marketplace.bi.Email;
+import fr.marketplace.bi.HashedPassword;
+import fr.marketplace.bi.User;
+import fr.marketplace.bi.Username;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;
@@ -113,5 +116,16 @@ public class MutableUser {
 
     public User build() {
         return new User(this.id, this.email, this.username, this.hashedPassword, this.type, this.isSubscriber, this.createAt, this.isDisable);
+    }
+
+    public void setFrom(User user) {
+                setId(user.id())
+                .setType(user.type())
+                .setHashedPassword(user.hashedPassword())
+                .setDisable(user.isDisable())
+                .setUsername(user.username())
+                .setSubscriber(user.isSubscriber())
+                .setEmail(user.email())
+                .setCreateAt(user.createAt());
     }
 }

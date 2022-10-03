@@ -4,8 +4,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import fr.marketplace.Json;
 import org.eclipse.collections.api.bag.MutableBag;
 import org.eclipse.collections.api.factory.Bags;
+import org.eclipse.collections.api.map.MutableMap;
 
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class StockProductRepository {
@@ -21,19 +24,23 @@ public class StockProductRepository {
     }
 
     public static StockProductRepository fromFile(Json json, Path stockProductRepositoryFilePath) {
-        MutableBag<UUID> repository;
+        final MutableBag<UUID> repository = Bags.mutable.empty();
+        Map<UUID, Integer> map;
         try {
-            repository = json.decodeFromFile(stockProductRepositoryFilePath, new TypeReference<>() {
+            map = json.decodeFromFile(stockProductRepositoryFilePath, new TypeReference<>() {
             });
         } catch (Exception e) {
-            repository = Bags.mutable.empty();
+            map = new HashMap<>();
         }
+
+        map.forEach(repository::setOccurrences);
 
         return new StockProductRepository(json, repository, stockProductRepositoryFilePath);
     }
 
     private void writeToFile() {
-        json.encodeToFile(stockProductRepositoryFilePath, repository);
+        json.encodeToFile(stockProductRepositoryFilePath, repository
+                .toMapOfItemToCount());
     }
 
     public boolean has(UUID productId, int amount) {
@@ -51,6 +58,11 @@ public class StockProductRepository {
 
     public void addAmount(UUID productId, int amount) {
         repository.addOccurrences(productId, amount);
+        writeToFile();
+    }
+
+    public void setAmount(UUID productId, int amount) {
+        repository.setOccurrences(productId, amount);
         writeToFile();
     }
 }

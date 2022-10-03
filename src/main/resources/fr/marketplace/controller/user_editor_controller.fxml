@@ -73,19 +73,19 @@
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>
       </Label>
-      <ComboBox prefWidth="150.0">
+      <ComboBox fx:id="roleComboBox" prefWidth="150.0">
          <VBox.margin>
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>
       </ComboBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <CheckBox mnemonicParsing="false" text="Is Subscriber" HBox.hgrow="ALWAYS">
+            <CheckBox fx:id="isSubscriberCheckBox" mnemonicParsing="false" text="Is Subscriber" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </CheckBox>
-            <CheckBox mnemonicParsing="false" text="Is Disable" HBox.hgrow="ALWAYS">
+            <CheckBox fx:id="isDisableCheckBox" mnemonicParsing="false" text="Is Disable" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>

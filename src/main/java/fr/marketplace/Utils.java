@@ -1,5 +1,8 @@
 package fr.marketplace;
 
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.GridPane;
 import org.javamoney.moneta.FastMoney;
 
 import javax.money.MonetaryAmount;
@@ -17,6 +20,8 @@ public class Utils {
     }
 
     public static String prettyFormat(MonetaryAmount monetaryAmount) {
+        GridPane pane = new GridPane();
+
         final double value = monetaryAmount.getNumber().doubleValueExact();
         return value + " " + Currency.getInstance(monetaryAmount.getCurrency().getCurrencyCode()).getSymbol();
     }

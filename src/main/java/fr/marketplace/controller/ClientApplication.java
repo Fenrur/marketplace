@@ -83,11 +83,11 @@ public class ClientApplication extends Application {
 
         marketPlaceRepository = new MarketPlaceRepository(productRepository, orderRepository, userRepository, stockProductRepository, deliveryServiceRepository);
 
-        loggedUser = Utils.first(userRepository);
+//        loggedUser = Utils.first(userRepository);
 
-//        changeSceneFromFXML("login_controller.fxml", false, "MarketPlace - Login");
+        changeSceneFromFXML("login_controller.fxml", false, "MarketPlace - Login");
 //        changeSceneFromFXML("user_marketplace_controller.fxml", false, "MarketPlace - Seller");
-        changeSceneFromFXML("select_view_type_marketplace.fxml", false, "MarketPlace - Select");
+//        changeSceneFromFXML("select_view_type_marketplace.fxml", false, "MarketPlace - Select");
         primaryStage.show();
     }
 }

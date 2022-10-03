@@ -10,8 +10,8 @@
         <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#onNewProductClicked"
                 text="new product" prefWidth="100.0"/>
         <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#onEditClicked" text="edit" prefWidth="100.0"/>
-        <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#onShowImagesClicked"
-                text="show images" prefWidth="100.0"/>
+        <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#onShowProductClicked"
+                text="show product" prefWidth="100.0"/>
     </ToolBar>
     <TableView fx:id="tableView" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
         <columns>

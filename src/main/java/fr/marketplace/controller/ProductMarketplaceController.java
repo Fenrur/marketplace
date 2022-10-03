@@ -15,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javax.money.MonetaryAmount;
 import java.net.URI;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.UUID;
@@ -38,6 +39,18 @@ public class ProductMarketplaceController implements Initializable {
                         .productRepository()
                         .getAllProducts()
                         .stream()
+                        .filter(product -> {
+                            if (ClientApplication.loggedUser.type() == User.Type.MARKETPLACE) return true;
+                            else {
+                                final Optional<UUID> userIdByProductId = ClientApplication
+                                        .marketPlaceRepository
+                                        .productRepository()
+                                        .getUserIdByProductId(product.id());
+
+                                if (userIdByProductId.isEmpty()) return false;
+                                return userIdByProductId.get().equals(ClientApplication.loggedUser.id());
+                            }
+                        })
                         .map(product -> MutableProduct.from(product, ClientApplication.marketPlaceRepository.userRepository(), ClientApplication.marketPlaceRepository.productRepository()))
                         .toList()
         ));
@@ -107,7 +120,7 @@ public class ProductMarketplaceController implements Initializable {
         }
     }
 
-    public void onShowImagesClicked(MouseEvent mouseEvent) {
+    public void onShowProductClicked(MouseEvent mouseEvent) {
         if (ClientApplication.loggedUser.isDisable() || (ClientApplication.loggedUser.type() != User.Type.MARKETPLACE && ClientApplication.loggedUser.type() != User.Type.SELLER)) return;
 
         final MutableProduct mutableProduct = tableView.getSelectionModel().getSelectedItem();
@@ -115,7 +128,8 @@ public class ProductMarketplaceController implements Initializable {
         final String name = mutableProduct.getName();
         final MonetaryAmount price = mutableProduct.getPrice();
         final Set<URI> uris = Set.copyOf(mutableProduct.getImages());
-        ClientApplication.showNewStageFromFXML("images_viewer_controller.fxml", true, "MarketPlace - Images Viewer", param -> new ImagesViewerController(uris, name, Utils.prettyFormat(price)));
+        final String description = mutableProduct.getDescription();
+        ClientApplication.showNewStageFromFXML("product_viewer_controller.fxml", true, "MarketPlace - Images Viewer", param -> new ProductViewerController(uris, name, Utils.prettyFormat(price), description));
     }
 
     public void onBackClicked(MouseEvent mouseEvent) {

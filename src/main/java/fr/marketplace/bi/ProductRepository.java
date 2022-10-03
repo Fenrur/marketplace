@@ -50,6 +50,10 @@ public class ProductRepository {
         );
     }
 
+    public Set<Product> getAllProductByUserId(UUID userId) {
+        return repository.get(userId).toSet();
+    }
+
     public void put(UUID userId, Product product) {
         repository.remove(userId, product);
         repository.put(userId, product);

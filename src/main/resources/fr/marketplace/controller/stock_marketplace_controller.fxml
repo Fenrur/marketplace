@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="fr.marketplace.controller.StockMarketplaceController"
+            prefHeight="600.0" prefWidth="800.0">
+
+    <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#onBackClicked" prefWidth="100.0" text="back" />
+    </ToolBar>
+
+    <TableView fx:id="tableView" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="productIdTableColumn" prefWidth="300.0" text="Product Id" />
+            <TableColumn fx:id="productNameTableColumn" prefWidth="300.0" text="Product Name" />
+            <TableColumn fx:id="actualStockTableColumn" prefWidth="200" text="Actual Stock" />
+        </columns>
+    </TableView>
+</VBox>
