@@ -160,6 +160,7 @@ public class CustomerMarketplaceController implements Initializable {
     }
 
     public void onBackClicked(MouseEvent mouseEvent) {
+        searchStage.close();
         ClientApplication.changeSceneFromFXML("select_view_type_marketplace.fxml", false, "MarketPlace - Select");
     }
 

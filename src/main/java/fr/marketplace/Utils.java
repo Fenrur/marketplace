@@ -2,6 +2,8 @@ package fr.marketplace;
 
 import javax.money.MonetaryAmount;
 import java.util.Currency;
+import java.util.Scanner;
+import java.util.concurrent.Executors;
 
 public class Utils {
 

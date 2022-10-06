@@ -5,6 +5,8 @@ import org.apache.commons.lang3.Validate;
 import org.javamoney.moneta.FastMoney;
 
 import javax.money.MonetaryAmount;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -12,6 +14,7 @@ import java.util.function.Consumer;
 public sealed interface Search extends Consumer<Set<Product>> {
 
     record ByName(String searchedName) implements Search {
+
         public ByName {
             Objects.requireNonNull(searchedName);
         }
@@ -51,6 +54,22 @@ public sealed interface Search extends Consumer<Set<Product>> {
                 final MonetaryAmount productPrice = product.price();
                 final FastMoney min = FastMoney.of(this.min, productPrice.getCurrency());
                 return !productPrice.isGreaterThanOrEqualTo(min);
+            });
+        }
+    }
+
+    record ByBeforeDate(LocalDateTime date, DeliveryRepository deliveryRepository, PostalAddress postalAddress) implements Search {
+
+        public ByBeforeDate {
+            Objects.requireNonNull(date);
+            Objects.requireNonNull(deliveryRepository);
+        }
+
+        @Override
+        public void accept(Set<Product> products) {
+            products.removeIf(product -> {
+                final LocalDate estimatedDate = deliveryRepository.getEstimatedDate(postalAddress);
+                return !estimatedDate.isBefore(estimatedDate);
             });
         }
     }

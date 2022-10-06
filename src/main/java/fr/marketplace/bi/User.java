@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public record User(UUID id, Email email, Username username, HashedPassword hashedPassword, Type type,
-                   boolean isSubscriber, ZonedDateTime createAt, boolean isDisable) {
+                   boolean isSubscriber, ZonedDateTime createAt, boolean isDisable, PostalAddress postalAddress) {
 
     public User {
         Objects.requireNonNull(id);
@@ -14,6 +14,7 @@ public record User(UUID id, Email email, Username username, HashedPassword hashe
         Objects.requireNonNull(hashedPassword);
         Objects.requireNonNull(type);
         Objects.requireNonNull(createAt);
+        Objects.requireNonNull(postalAddress);
     }
 
     public static void main(String[] args) {

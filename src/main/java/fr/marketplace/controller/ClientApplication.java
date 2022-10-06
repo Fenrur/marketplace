@@ -70,9 +70,9 @@ public class ClientApplication extends Application {
         final UserRepository userRepository = UserRepository.fromFile(json, Path.of("/Users/livio/Desktop/aa/users.json"));
         final OrderRepository orderRepository = OrderRepository.fromFile(json, Path.of("/Users/livio/Desktop/aa/orders.json"));
         final StockProductRepository stockProductRepository = StockProductRepository.fromFile(json, Path.of("/Users/livio/Desktop/aa/stock_products.json"));
-        final DeliveryServiceRepository deliveryServiceRepository = DeliveryServiceRepository.fromFile(json, Path.of("/Users/livio/Desktop/aa/delivery_services.json"));
+        final DeliveryRepository deliveryRepository = DeliveryRepository.fromFile(json, Path.of("/Users/livio/Desktop/aa/delivery_services.json"));
 
-        marketPlaceRepository = new MarketPlaceRepository(productRepository, orderRepository, userRepository, stockProductRepository, deliveryServiceRepository);
+        marketPlaceRepository = new MarketPlaceRepository(productRepository, orderRepository, userRepository, stockProductRepository, deliveryRepository);
 
 //        loggedUser = Utils.first(userRepository);
 
