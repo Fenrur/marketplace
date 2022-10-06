@@ -1,6 +1,5 @@
 package fr.marketplace.controller;
 
-import fr.marketplace.Utils;
 import fr.marketplace.bi.Product;
 import fr.marketplace.bi.User;
 import javafx.beans.property.SimpleObjectProperty;
@@ -11,6 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.StageStyle;
 
 import javax.money.MonetaryAmount;
 import java.net.URI;
@@ -31,7 +31,8 @@ public class ProductMarketplaceController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (ClientApplication.loggedUser.isDisable() || (ClientApplication.loggedUser.type() != User.Type.MARKETPLACE && ClientApplication.loggedUser.type() != User.Type.SELLER)) return;
+        if (ClientApplication.loggedUser.isDisable() || (ClientApplication.loggedUser.type() != User.Type.MARKETPLACE && ClientApplication.loggedUser.type() != User.Type.SELLER))
+            return;
 
         tableView.setItems(FXCollections.observableArrayList(
                 ClientApplication
@@ -104,24 +105,27 @@ public class ProductMarketplaceController implements Initializable {
     }
 
     public void onNewProductClicked(MouseEvent mouseEvent) {
-        if (ClientApplication.loggedUser.isDisable() || (ClientApplication.loggedUser.type() != User.Type.MARKETPLACE && ClientApplication.loggedUser.type() != User.Type.SELLER)) return;
+        if (ClientApplication.loggedUser.isDisable() || (ClientApplication.loggedUser.type() != User.Type.MARKETPLACE && ClientApplication.loggedUser.type() != User.Type.SELLER))
+            return;
 
         final MutableProduct mutableProduct = new MutableProduct();
         mutableProduct.setId(UUID.randomUUID());
-        ClientApplication.showNewStageFromFXML("product_editor_controller.fxml", true, "MarketPlace - New Product", param -> new ProductEditorController(mutableProduct, this));
+        ClientApplication.showNewStageFromFXML("product_editor_controller.fxml", true, "MarketPlace - New Product", param -> new ProductEditorController(mutableProduct, this), StageStyle.DECORATED);
     }
 
     public void onEditClicked(MouseEvent mouseEvent) {
-        if (ClientApplication.loggedUser.isDisable() || (ClientApplication.loggedUser.type() != User.Type.MARKETPLACE && ClientApplication.loggedUser.type() != User.Type.SELLER)) return;
+        if (ClientApplication.loggedUser.isDisable() || (ClientApplication.loggedUser.type() != User.Type.MARKETPLACE && ClientApplication.loggedUser.type() != User.Type.SELLER))
+            return;
 
         final MutableProduct mutableProduct = tableView.getSelectionModel().getSelectedItem();
         if (mutableProduct != null) {
-            ClientApplication.showNewStageFromFXML("product_editor_controller.fxml", true, "MarketPlace - Edit Product", param -> new ProductEditorController(mutableProduct, this));
+            ClientApplication.showNewStageFromFXML("product_editor_controller.fxml", true, "MarketPlace - Edit Product", param -> new ProductEditorController(mutableProduct, this), StageStyle.DECORATED);
         }
     }
 
     public void onShowProductClicked(MouseEvent mouseEvent) {
-        if (ClientApplication.loggedUser.isDisable() || (ClientApplication.loggedUser.type() != User.Type.MARKETPLACE && ClientApplication.loggedUser.type() != User.Type.SELLER)) return;
+        if (ClientApplication.loggedUser.isDisable() || (ClientApplication.loggedUser.type() != User.Type.MARKETPLACE && ClientApplication.loggedUser.type() != User.Type.SELLER))
+            return;
 
         final MutableProduct mutableProduct = tableView.getSelectionModel().getSelectedItem();
         if (mutableProduct == null) return;
@@ -129,10 +133,20 @@ public class ProductMarketplaceController implements Initializable {
         final MonetaryAmount price = mutableProduct.getPrice();
         final Set<URI> uris = Set.copyOf(mutableProduct.getImages());
         final String description = mutableProduct.getDescription();
-        ClientApplication.showNewStageFromFXML("product_viewer_controller.fxml", true, "MarketPlace - Images Viewer", param -> new ProductViewerController(uris, name, Utils.prettyFormat(price), description));
+        ClientApplication.showNewStageFromFXML(
+                "product_viewer_controller.fxml",
+                true,
+                "MarketPlace - Product Viewer",
+                param -> new ProductViewerController(uris, name, new PrettyMonetaryAmount(price), description),
+                StageStyle.DECORATED
+        );
     }
 
     public void onBackClicked(MouseEvent mouseEvent) {
-        ClientApplication.changeSceneFromFXML("select_view_type_marketplace.fxml", false, "MarketPlace - Select");
+        ClientApplication.changeSceneFromFXML(
+                "select_view_type_marketplace.fxml",
+                false,
+                "MarketPlace - Select"
+        );
     }
 }

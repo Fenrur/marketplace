@@ -119,7 +119,7 @@ public class MutableUser {
     }
 
     public void setFrom(User user) {
-                setId(user.id())
+        setId(user.id())
                 .setType(user.type())
                 .setHashedPassword(user.hashedPassword())
                 .setDisable(user.isDisable())

@@ -14,7 +14,6 @@ public record Username(String username) implements Comparable<Username> {
     }
 
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

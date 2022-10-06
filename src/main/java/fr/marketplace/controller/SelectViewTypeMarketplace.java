@@ -24,7 +24,7 @@ public class SelectViewTypeMarketplace implements Initializable {
         switch (ClientApplication.loggedUser.type()) {
             case MARKETPLACE -> {
                 addSection("Marketplace (Just View)", "customer.svg", event -> {
-
+                    ClientApplication.changeSceneFromFXML("customer_marketplace_controller.fxml", true, "MarketPlace");
                 });
                 addSection("Product Management", "product.svg", event -> {
                     ClientApplication.changeSceneFromFXML("product_marketplace_controller.fxml", true, "MarketPlace - Product Management");
@@ -44,7 +44,7 @@ public class SelectViewTypeMarketplace implements Initializable {
             }
             case SELLER -> {
                 addSection("Marketplace (Just View)", "marketplace.svg", event -> {
-
+                    ClientApplication.changeSceneFromFXML("customer_marketplace_controller.fxml", true, "MarketPlace");
                 });
                 addSection("Product Management", "product.svg", event -> {
                     ClientApplication.changeSceneFromFXML("product_marketplace_controller.fxml", true, "MarketPlace - Product Management");
@@ -65,7 +65,7 @@ public class SelectViewTypeMarketplace implements Initializable {
             }
             case CUSTOMER -> {
                 addSection("Marketplace", "customer.svg", event -> {
-
+                    ClientApplication.changeSceneFromFXML("customer_marketplace_controller.fxml", true, "MarketPlace");
                 });
             }
         }

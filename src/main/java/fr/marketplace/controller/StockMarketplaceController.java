@@ -5,12 +5,16 @@ import fr.marketplace.bi.User;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.StageStyle;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.UUID;
 import java.util.function.BiConsumer;
@@ -76,5 +80,23 @@ public class StockMarketplaceController implements Initializable {
 
     public void onBackClicked(MouseEvent mouseEvent) {
         ClientApplication.changeSceneFromFXML("select_view_type_marketplace.fxml", false, "MarketPlace - Select");
+    }
+
+    public void onShowProductClicked(MouseEvent mouseEvent) {
+        if (ClientApplication.loggedUser.isDisable() || (ClientApplication.loggedUser.type() != User.Type.MARKETPLACE && ClientApplication.loggedUser.type() != User.Type.SELLER))
+            return;
+
+        final MutableStock mutableStock = tableView.getSelectionModel().getSelectedItem();
+        if (mutableStock == null) return;
+
+        final Optional<Product> op = ClientApplication
+                .marketPlaceRepository
+                .productRepository()
+                .get(mutableStock.getProductId());
+
+        if (op.isEmpty()) return;
+
+        final Product product = op.get();
+        ClientApplication.showNewStageFromFXML("product_viewer_controller.fxml", true, "MarketPlace - Product Viewer", param -> new ProductViewerController(product.images(), product.name(), new PrettyMonetaryAmount(product.price()), product.description()), StageStyle.DECORATED);
     }
 }

@@ -68,7 +68,6 @@ public class ProductRepository {
 
     public Set<Product> search(ProductSearch productSearch) {
         final Set<Product> allProducts = getAllProducts();
-        allProducts.removeIf(product -> !product.isAvailable());
 
         for (Search search : productSearch.searches()) {
             if (allProducts.isEmpty()) break;
@@ -89,5 +88,12 @@ public class ProductRepository {
         }
 
         return Optional.empty();
+    }
+
+    public Optional<Product> get(UUID productId) {
+        return getAllProducts()
+                .stream()
+                .filter(product -> product.id().equals(productId))
+                .findFirst();
     }
 }

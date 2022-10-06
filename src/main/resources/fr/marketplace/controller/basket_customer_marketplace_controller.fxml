@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" prefHeight="600.0" prefWidth="950.0"
+      xmlns="http://javafx.com/javafx/18" fx:controller="fr.marketplace.controller.BasketCustomerMarketplaceController">
+    <children>
+        <ToolBar prefHeight="40.0" prefWidth="Infinity">
+            <items>
+                <Button mnemonicParsing="false" onMouseClicked="#onRemoveProductsClicked" prefWidth="150.0"
+                        text="remove product(s)"/>
+                <Separator prefWidth="30.0"/>
+                <Label fx:id="totalPrice" alignment="BOTTOM_CENTER" prefHeight="17.0" prefWidth="60.0" text="0 €"
+                       textFill="#00ca83"/>
+            </items>
+        </ToolBar>
+        <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="previewTableColumn" prefWidth="75.0" text="Preview"/>
+                <TableColumn fx:id="productNameTableColumn" prefWidth="75.0" text="Product Name"/>
+                <TableColumn fx:id="estimatedDeliveryTableColumn" prefWidth="75.0" text="Estimated Delivery Date"/>
+                <TableColumn fx:id="quantityTableColumn" prefWidth="75.0" text="Quantity"/>
+                <TableColumn fx:id="uniPriceTableColumn" prefWidth="75.0" text="Unit Price"/>
+                <TableColumn fx:id="totalPriceTableColumn" prefWidth="75.0" text="Total Price"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+    </children>
+</VBox>

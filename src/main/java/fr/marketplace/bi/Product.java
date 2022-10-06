@@ -9,7 +9,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-public record Product(UUID id, String name, String description, MonetaryAmount price, Set<URI> images, boolean isAvailable, boolean isAvailableByMarketplace) {
+public record Product(UUID id, String name, String description, MonetaryAmount price, Set<URI> images,
+                      boolean isAvailable, boolean isAvailableByMarketplace) {
 
     public Product {
         Objects.requireNonNull(id);

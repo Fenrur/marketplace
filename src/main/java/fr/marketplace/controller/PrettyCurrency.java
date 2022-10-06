@@ -12,16 +12,16 @@ public record PrettyCurrency(Currency currency) {
             .map(PrettyCurrency::new)
             .collect(Collectors.toUnmodifiableSet());
 
-    @Override
-    public String toString() {
-        return currency.getSymbol();
-    }
-
     public static Set<PrettyCurrency> getAvailableCurrencies() {
         return INSTANCES;
     }
 
     public static PrettyCurrency defaultPrettyCurrency() {
         return new PrettyCurrency(Currency.getInstance("EUR"));
+    }
+
+    @Override
+    public String toString() {
+        return currency.getSymbol();
     }
 }

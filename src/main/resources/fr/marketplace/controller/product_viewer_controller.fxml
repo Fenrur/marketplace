@@ -1,77 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import fr.marketplace.MultiImageView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
-<BorderPane prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.marketplace.controller.ProductViewerController">
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="950.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/18"
+            fx:controller="fr.marketplace.controller.ProductViewerController">
     <left>
         <Label onMouseClicked="#leftClicked" text="←" BorderPane.alignment="CENTER">
             <font>
-                <Font size="96.0" />
+                <Font size="96.0"/>
             </font>
-         <BorderPane.margin>
-            <Insets left="20.0" right="20.0" />
-         </BorderPane.margin>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
+            <BorderPane.margin>
+                <Insets left="20.0" right="20.0"/>
+            </BorderPane.margin>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
         </Label>
     </left>
-   <right>
-      <Label onMouseClicked="#rightClicked" text="→" BorderPane.alignment="CENTER">
-         <font>
-            <Font size="96.0" />
-         </font>
-         <BorderPane.margin>
-            <Insets left="20.0" right="20.0" />
-         </BorderPane.margin>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Label>
-   </right>
-   <top>
-      <Label fx:id="productNameLabel" BorderPane.alignment="CENTER">
-         <font>
-            <Font size="45.0" />
-         </font>
-         <BorderPane.margin>
-            <Insets bottom="20.0" top="20.0" />
-         </BorderPane.margin>
-      </Label>
-   </top>
-   <bottom>
-      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
-         <Label fx:id="descriptionLabel" alignment="CENTER" contentDisplay="CENTER" text="Description">
+    <right>
+        <Label onMouseClicked="#rightClicked" text="→" BorderPane.alignment="CENTER">
             <font>
-               <Font size="25.0" />
+                <Font size="96.0"/>
             </font>
-         </Label>
-         <Label fx:id="priceLabel" text="0 €" BorderPane.alignment="CENTER">
             <BorderPane.margin>
-               <Insets bottom="20.0" top="20.0" />
+                <Insets left="20.0" right="20.0"/>
             </BorderPane.margin>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </Label>
+    </right>
+    <top>
+        <Label fx:id="productNameLabel" BorderPane.alignment="CENTER">
             <font>
-               <Font size="40.0" />
+                <Font size="45.0"/>
             </font>
-         </Label>
-      </VBox>
-   </bottom>
-   <center>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fx:id="imageView" fitHeight="700.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS" />
-            <Label fx:id="indexLabel" alignment="BOTTOM_CENTER" text="0 / 0" textAlignment="CENTER">
-               <font>
-                  <Font size="25.0" />
-               </font>
+            <BorderPane.margin>
+                <Insets bottom="20.0" top="20.0"/>
+            </BorderPane.margin>
+        </Label>
+    </top>
+    <bottom>
+        <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+            <Label fx:id="descriptionLabel" alignment="CENTER" contentDisplay="CENTER" text="Description">
+                <font>
+                    <Font size="25.0"/>
+                </font>
             </Label>
-         </children>
-      </VBox>
-   </center>
+            <Label fx:id="priceLabel" text="0 €" BorderPane.alignment="CENTER">
+                <BorderPane.margin>
+                    <Insets bottom="20.0" top="20.0"/>
+                </BorderPane.margin>
+                <font>
+                    <Font size="40.0"/>
+                </font>
+            </Label>
+        </VBox>
+    </bottom>
+    <center>
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+                <MultiImageView fx:id="imageView" fitHeight="700.0" fitWidth="700.0" pickOnBounds="true"
+                                preserveRatio="true" VBox.vgrow="ALWAYS"/>
+                <Label fx:id="indexLabel" alignment="BOTTOM_CENTER" text="0 / 0" textAlignment="CENTER">
+                    <font>
+                        <Font size="25.0"/>
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+    </center>
 </BorderPane>

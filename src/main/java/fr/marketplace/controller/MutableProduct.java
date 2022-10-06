@@ -1,6 +1,9 @@
 package fr.marketplace.controller;
 
-import fr.marketplace.bi.*;
+import fr.marketplace.bi.Product;
+import fr.marketplace.bi.ProductRepository;
+import fr.marketplace.bi.User;
+import fr.marketplace.bi.UserRepository;
 
 import javax.money.MonetaryAmount;
 import java.net.URI;
@@ -31,6 +34,34 @@ public class MutableProduct {
         this.isAvailable = isAvailable;
         this.isAvailableByMarketplace = isAvailableByMarketplace;
         this.sellerName = sellerName;
+    }
+
+    public static MutableProduct from(Product product, UserRepository userRepository, ProductRepository productRepository) {
+        String sellerName = "unknown";
+
+        try {
+            final Optional<UUID> userIdByProductIdOp = productRepository.getUserIdByProductId(product.id());
+
+            final UUID userIdByProductId = userIdByProductIdOp.get();
+
+            final Optional<User> userOp = userRepository.get(userIdByProductId);
+
+            sellerName = userOp.get().username().username();
+
+        } catch (Exception ignored) {
+
+        }
+
+        return new MutableProduct(
+                product.id(),
+                product.name(),
+                sellerName,
+                product.description(),
+                product.price(),
+                product.images(),
+                product.isAvailable(),
+                product.isAvailableByMarketplace()
+        );
     }
 
     public String getSellerName() {
@@ -107,34 +138,6 @@ public class MutableProduct {
 
     public Product build() {
         return new Product(id, name, description, price, images, isAvailable, isAvailableByMarketplace);
-    }
-
-    public static MutableProduct from(Product product, UserRepository userRepository, ProductRepository productRepository) {
-        String sellerName = "unknown";
-
-        try {
-            final Optional<UUID> userIdByProductIdOp = productRepository.getUserIdByProductId(product.id());
-
-            final UUID userIdByProductId = userIdByProductIdOp.get();
-
-            final Optional<User> userOp = userRepository.get(userIdByProductId);
-
-            sellerName = userOp.get().username().username();
-
-        } catch (Exception ignored) {
-
-        }
-
-        return new MutableProduct(
-                product.id(),
-                product.name(),
-                sellerName,
-                product.description(),
-                product.price(),
-                product.images(),
-                product.isAvailable(),
-                product.isAvailableByMarketplace()
-        );
     }
 
     @Override

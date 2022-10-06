@@ -2,7 +2,6 @@ package fr.marketplace.controller;
 
 import fr.marketplace.Json;
 import fr.marketplace.Resource;
-import fr.marketplace.Utils;
 import fr.marketplace.bi.*;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -13,11 +12,11 @@ import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ResourceBundle;
 
 public class ClientApplication extends Application {
 
@@ -42,17 +41,7 @@ public class ClientApplication extends Application {
         });
     }
 
-    public static void showNewStageFromFXML(String name, boolean resizable, String title) {
-        final Parent parent = Resource.loadFXML(name);
-        final Scene scene = new Scene(parent, -1, -1, true, SceneAntialiasing.BALANCED);
-        final Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setResizable(resizable);
-        stage.setTitle(title);
-        stage.show();
-    }
-
-    public static void showNewStageFromFXML(String name, boolean resizable, String title, Callback<Class<?>, Object> controllerFactory) {
+    public static Stage showNewStageFromFXML(String name, boolean resizable, String title, Callback<Class<?>, Object> controllerFactory, StageStyle stageStyle) {
         try {
             final FXMLLoader loader = new FXMLLoader(ClientApplication.class.getResource(name));
             loader.setControllerFactory(controllerFactory);
@@ -61,10 +50,12 @@ public class ClientApplication extends Application {
 
             final Scene scene = new Scene(parent, -1, -1, true, SceneAntialiasing.BALANCED);
             final Stage stage = new Stage();
+            stage.initStyle(stageStyle);
             stage.setScene(scene);
             stage.setResizable(resizable);
             stage.setTitle(title);
             stage.show();
+            return stage;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

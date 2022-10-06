@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="347.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="347.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/18"
             fx:controller="fr.marketplace.controller.SignInController">
     <children>
         <Label layoutX="64.0" layoutY="29.0" text="Sign in yourself">

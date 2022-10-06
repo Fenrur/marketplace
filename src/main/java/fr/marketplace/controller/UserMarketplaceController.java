@@ -12,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.StageStyle;
 
 import java.net.URL;
 import java.time.ZonedDateTime;
@@ -30,7 +31,8 @@ public class UserMarketplaceController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (ClientApplication.loggedUser.isDisable() || ClientApplication.loggedUser.type() != User.Type.MARKETPLACE) return;
+        if (ClientApplication.loggedUser.isDisable() || ClientApplication.loggedUser.type() != User.Type.MARKETPLACE)
+            return;
 
         tableView.setItems(FXCollections.observableArrayList(
                 ClientApplication
@@ -82,7 +84,7 @@ public class UserMarketplaceController implements Initializable {
 
         userTypeColumn.setCellValueFactory(param -> {
             final ComboBox<User.Type> typeComboBox = new ComboBox<>(
-                FXCollections.observableArrayList(User.Type.values())
+                    FXCollections.observableArrayList(User.Type.values())
             );
 
             typeComboBox.setValue(param.getValue().getType());
@@ -104,20 +106,22 @@ public class UserMarketplaceController implements Initializable {
     }
 
     public void onNewClicked(MouseEvent mouseEvent) {
-        if (ClientApplication.loggedUser.isDisable() || ClientApplication.loggedUser.type() != User.Type.MARKETPLACE) return;
+        if (ClientApplication.loggedUser.isDisable() || ClientApplication.loggedUser.type() != User.Type.MARKETPLACE)
+            return;
 
         final MutableUser mutableUser = new MutableUser();
         mutableUser.setId(UUID.randomUUID());
-        ClientApplication.showNewStageFromFXML("user_editor_controller.fxml", true, "MarketPlace - New User", param -> new UserEditorController(mutableUser, this));
+        ClientApplication.showNewStageFromFXML("user_editor_controller.fxml", true, "MarketPlace - New User", param -> new UserEditorController(mutableUser, this), StageStyle.DECORATED);
     }
 
 
     public void onEditClicked(MouseEvent mouseEvent) {
-        if (ClientApplication.loggedUser.isDisable() || ClientApplication.loggedUser.type() != User.Type.MARKETPLACE) return;
+        if (ClientApplication.loggedUser.isDisable() || ClientApplication.loggedUser.type() != User.Type.MARKETPLACE)
+            return;
 
         final MutableUser mutableUser = tableView.getSelectionModel().getSelectedItem();
         if (mutableUser != null) {
-            ClientApplication.showNewStageFromFXML("user_editor_controller.fxml", true, "MarketPlace - Edit User", param -> new UserEditorController(mutableUser, this));
+            ClientApplication.showNewStageFromFXML("user_editor_controller.fxml", true, "MarketPlace - Edit User", param -> new UserEditorController(mutableUser, this), StageStyle.DECORATED);
         }
     }
 
