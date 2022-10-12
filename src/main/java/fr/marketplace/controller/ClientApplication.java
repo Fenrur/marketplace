@@ -66,11 +66,11 @@ public class ClientApplication extends Application {
         stage = primaryStage;
         final Json json = new Json();
 
-        final ProductRepository productRepository = ProductRepository.fromFile(json, Path.of("/Users/livio/Desktop/aa/products.json"));
-        final UserRepository userRepository = UserRepository.fromFile(json, Path.of("/Users/livio/Desktop/aa/users.json"));
-        final OrderRepository orderRepository = OrderRepository.fromFile(json, Path.of("/Users/livio/Desktop/aa/orders.json"));
-        final StockProductRepository stockProductRepository = StockProductRepository.fromFile(json, Path.of("/Users/livio/Desktop/aa/stock_products.json"));
-        final DeliveryRepository deliveryRepository = DeliveryRepository.fromFile(json, Path.of("/Users/livio/Desktop/aa/delivery_services.json"));
+        final ProductRepository productRepository = ProductRepository.fromFile(json, Path.of("./products.json"));
+        final UserRepository userRepository = UserRepository.fromFile(json, Path.of("./users.json"));
+        final OrderRepository orderRepository = OrderRepository.fromFile(json, Path.of("./orders.json"));
+        final StockProductRepository stockProductRepository = StockProductRepository.fromFile(json, Path.of("./stock_products.json"));
+        final DeliveryRepository deliveryRepository = DeliveryRepository.fromFile(json, Path.of("./delivery_services.json"));
 
         marketPlaceRepository = new MarketPlaceRepository(productRepository, orderRepository, userRepository, stockProductRepository, deliveryRepository);
 

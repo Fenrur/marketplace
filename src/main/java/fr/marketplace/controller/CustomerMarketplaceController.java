@@ -115,7 +115,8 @@ public class CustomerMarketplaceController implements Initializable {
                         price = p;
                     }
 
-                    final Data data = new Data(product.id(), imageView, product.name(), priceComponent, user.username(), LocalDate.now(), price);
+                    final LocalDate estimatedDeliveryDate = LocalDate.now().plusDays(1 + new Random().nextInt(7));
+                    final Data data = new Data(product.id(), imageView, product.name(), priceComponent, user.username(), estimatedDeliveryDate, price);
                     dataConsumer.accept(data);
                 })
                 .collect(Collectors.toList());
